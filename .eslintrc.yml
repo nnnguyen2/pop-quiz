@@ -1,0 +1,25 @@
+env:
+  browser: true
+  es2021: true
+extends:
+  - plugin:react/recommended
+  - standard-with-typescript
+overrides: []
+parserOptions:
+  ecmaVersion: latest
+  sourceType: module
+  project:
+    - tsconfig.json
+plugins:
+  - react
+rules:
+  react/react-in-jsx-scope: 0
+  semi: off
+  react/jsx-sort-props:
+    - 2
+    - callbacksLast: true
+      shorthandFirst: false
+      shorthandLast: true
+      ignoreCase: true
+      noSortAlphabetically: false
+  multiline-ternary: 0
