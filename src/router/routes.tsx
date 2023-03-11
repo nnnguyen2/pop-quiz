@@ -1,7 +1,7 @@
 import { type ReactElement } from 'react'
 import { Navigate } from 'react-router'
 
-import { LoginPage, ClientDashboardPage } from 'page'
+import { LoginPage, ClientDashboardPage, RegisterPage } from 'page'
 
 export interface Route {
   key: string
@@ -19,6 +19,11 @@ export const publicRouters: Route[] = [
     key: 'login',
     path: '/login',
     element: <LoginPage />
+  },
+  {
+    key: 'register',
+    path: '/register',
+    element: <RegisterPage />
   }
 ]
 

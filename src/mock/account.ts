@@ -3,6 +3,11 @@ export interface Account {
   password: string
 }
 
+export interface RegisterAccount extends Account {
+  email: string
+  confirm_password: string
+}
+
 export const clientAccount = {
   username: 'client',
   password: '123456'
