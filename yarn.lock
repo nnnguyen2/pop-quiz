@@ -10349,8 +10349,10 @@ __metadata:
     eslint-plugin-react: ^7.32.2
     lodash: ^4.17.21
     node-sass: ^8.0.0
+    prop-types: ^15.8.1
     react: ^18.2.0
     react-dom: ^18.2.0
+    react-otp-input: ^2.4.0
     react-router-dom: ^6.8.2
     react-scripts: 5.0.1
     typescript: "*"
@@ -12080,6 +12082,16 @@ __metadata:
   version: 18.2.0
   resolution: "react-is@npm:18.2.0"
   checksum: e72d0ba81b5922759e4aff17e0252bd29988f9642ed817f56b25a3e217e13eea8a7f2322af99a06edb779da12d5d636e9fda473d620df9a3da0df2a74141d53e
+  languageName: node
+  linkType: hard
+
+"react-otp-input@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "react-otp-input@npm:2.4.0"
+  peerDependencies:
+    react: ^16.2.0
+    react-dom: ^16.2.0
+  checksum: c73230be43fcc4d4abf8c39e9fe546a40637dae3e9633dc0af1727bc6ef14839b7e2d455216208ab718697c40513781740c95a2c300e8c5513954842e18c1dbf
   languageName: node
   linkType: hard
 
