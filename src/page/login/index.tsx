@@ -63,14 +63,7 @@ const Login: React.FC = () => {
             >
               Register
             </Button>
-            <Button
-              type='link'
-              onClick={() => {
-                navigate('/forgot')
-              }}
-            >
-              Forgot Password
-            </Button>
+            <Button type='link'>Forgot Password</Button>
           </div>
         </FormItem>
       </Form>

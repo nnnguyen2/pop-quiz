@@ -22,4 +22,3 @@ rules:
       shorthandLast: true
       ignoreCase: true
       noSortAlphabetically: false
-  multiline-ternary: 0
