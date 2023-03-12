@@ -21,6 +21,11 @@ const Login: React.FC = () => {
       notification.error({ message: 'Wrong password!' })
       return
     }
+    console.log(account)
+    if (account.isAdmin ?? false) {
+      navigate('/admin/dashboard')
+      return
+    }
     navigate('/client/dashboard')
   }
 

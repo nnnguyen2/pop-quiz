@@ -1,13 +1,13 @@
 import { Card, Col, Row, Typography, Pagination } from 'antd'
 
-import styles from './styles.module.scss'
+import { Layout } from 'components'
 
 const { Title } = Typography
 const { Meta } = Card
 
 const Dashboard: React.FC = () => {
   return (
-    <div className={styles.page}>
+    <Layout>
       <Title>Products</Title>
 
       <Row>
@@ -28,7 +28,7 @@ const Dashboard: React.FC = () => {
       </Row>
 
       <Pagination />
-    </div>
+    </Layout>
   )
 }
 
