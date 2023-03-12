@@ -2,6 +2,7 @@ export interface Account {
   username: string
   password: string
   email: string
+  isAdmin?: boolean
 }
 
 export interface EmailAccount {
@@ -21,7 +22,8 @@ export const clientAccount = {
 export const adminAccount = {
   username: 'admin',
   password: '123456',
-  email: 'admin@gmail.com'
+  email: 'admin@gmail.com',
+  isAdmin: true
 }
 
 export const accounts = [clientAccount, adminAccount]
