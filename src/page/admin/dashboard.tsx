@@ -43,6 +43,11 @@ const Dashboard: React.FC = () => {
         ))
     },
     {
+      title: 'Size',
+      dataIndex: 'size',
+      key: 'size'
+    },
+    {
       title: 'Price($)',
       dataIndex: 'price',
       key: 'price'

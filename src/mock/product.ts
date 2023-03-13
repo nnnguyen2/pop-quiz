@@ -9,6 +9,7 @@ export interface Product {
   name: string
   description?: string
   images?: string[]
+  size: string
   quantity: number
   price: number
   status: number
@@ -22,6 +23,7 @@ export const adminProducts = [
     images: [
       'https://product.hstatic.net/1000026602/product/dsc02421_6498f291214b4d6dac1d67e9219ae064_master.jpg'
     ],
+    size: 'XL',
     quantity: 10,
     price: 500,
     status: 0,
@@ -33,6 +35,7 @@ export const adminProducts = [
     images: [
       'https://product.hstatic.net/1000026602/product/dsc00385_45b36d43206445d6b215cf30cd4042b5_master.jpg'
     ],
+    size: 'L',
     quantity: 5,
     price: 700,
     status: 1,
