@@ -1,5 +1,13 @@
 import { useState, useContext } from 'react'
-import { Button, Form, Input, Typography, notification, message } from 'antd'
+import {
+  Alert,
+  Button,
+  Form,
+  Input,
+  Typography,
+  notification,
+  message
+} from 'antd'
 import { find } from 'lodash'
 import { useNavigate } from 'react-router-dom'
 
@@ -114,6 +122,23 @@ const Login: React.FC = () => {
               </div>
             </FormItem>
           </Form>
+        )}
+
+        {step === 1 && (
+          <Alert
+            message={
+              <>
+                Use account bellow for example login:
+                <div>
+                  Username: <b>client</b> / <b>admin</b>
+                </div>
+                <div>
+                  Password: <b>123456</b>
+                </div>
+              </>
+            }
+            type='info'
+          />
         )}
 
         {step === 2 && (
