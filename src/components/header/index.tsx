@@ -28,6 +28,7 @@ const AppHeader: React.FC = () => {
         <Button
           type='link'
           onClick={() => {
+            localStorage.removeItem('isLogin')
             navigate('/login')
           }}
         >
