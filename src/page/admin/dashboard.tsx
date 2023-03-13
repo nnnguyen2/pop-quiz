@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Typography, Table, Button, Tag, Modal, notification } from 'antd'
 
 import { Layout } from 'components'
-import { adminProducts } from 'mock'
+import { adminProducts, type Product } from 'mock'
 
 import styles from './style.module.scss'
 
@@ -10,6 +10,7 @@ const { Title } = Typography
 const { confirm } = Modal
 
 const Dashboard: React.FC = () => {
+  const [list, setList] = useState<Product[]>(adminProducts)
   const [selected, setSelected] = useState<string[]>([])
 
   const getTag: (value: number) => string[] | undefined = (value) => {
@@ -69,15 +70,21 @@ const Dashboard: React.FC = () => {
     }
   ]
 
-  const showConfirm: () => void = () => {
-    confirm({
-      icon: null,
-      title: 'Do you want update status of this products ?',
-      onOk: () => {
-        notification.success({ message: 'Update success!' })
-        setSelected([])
-      }
-    })
+  const showConfirm: (status: number) => () => void = (status) => {
+    return () =>
+      confirm({
+        icon: null,
+        title: 'Do you want update status of this products ?',
+        onOk: () => {
+          notification.success({ message: 'Update success!' })
+          setList((prev) =>
+            prev.map((item) =>
+              selected.includes(item.key) ? { ...item, status } : item
+            )
+          )
+          setSelected([])
+        }
+      })
   }
 
   return (
@@ -88,7 +95,7 @@ const Dashboard: React.FC = () => {
           <Button
             disabled={selected.length < 1}
             type='primary'
-            onClick={showConfirm}
+            onClick={showConfirm(1)}
           >
             Approve
           </Button>
@@ -96,7 +103,7 @@ const Dashboard: React.FC = () => {
             disabled={selected.length < 1}
             type='primary'
             danger
-            onClick={showConfirm}
+            onClick={showConfirm(2)}
           >
             Reject
           </Button>
@@ -104,8 +111,11 @@ const Dashboard: React.FC = () => {
       </Title>
       <Table
         columns={columns}
-        dataSource={adminProducts}
+        dataSource={list}
         rowSelection={{
+          getCheckboxProps: (record) => ({
+            disabled: record.status !== 0
+          }),
           selectedRowKeys: selected,
           onChange: (newSelected: any[]) => {
             setSelected(newSelected)

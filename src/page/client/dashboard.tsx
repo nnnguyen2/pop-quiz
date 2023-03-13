@@ -14,7 +14,7 @@ import {
 import { find } from 'lodash'
 
 import { Layout } from 'components'
-import { adminProducts, sizes, sizePrices } from 'mock'
+import { adminProducts, sizes, sizePrices, type Product } from 'mock'
 import styles from './style.module.scss'
 
 const { Title } = Typography
@@ -24,6 +24,7 @@ const { Option } = Select
 const Dashboard: React.FC = () => {
   const [form] = Form.useForm()
   const [open, setOpen] = useState<boolean>(false)
+  const [list, setList] = useState<Product[]>(adminProducts)
 
   const getTag: (value: number) => ReactNode | undefined = (value) => {
     const tag = {
@@ -80,7 +81,7 @@ const Dashboard: React.FC = () => {
       </Title>
 
       <Row gutter={16}>
-        {adminProducts.map((item, index: number) => (
+        {list.map((item, index: number) => (
           <Col key={`item-${index}`} sm={6}>
             <Card
               cover={
@@ -118,7 +119,22 @@ const Dashboard: React.FC = () => {
           form.resetFields()
           setOpen(false)
         }}
-        onOk={() => {
+        onOk={async () => {
+          const values = await form.validateFields()
+          const product = find(adminProducts, { key: values.name })
+          setList((prev) => [
+            ...prev,
+            {
+              key: `${prev.length + 1}`,
+              name: product.name,
+              images: product.images,
+              size: sizeCalculator(),
+              quantity: values.quantity,
+              price: priceCalculator(),
+              status: 0,
+              upload_by: 'Client'
+            }
+          ])
           setOpen(false)
         }}
       >
@@ -134,10 +150,8 @@ const Dashboard: React.FC = () => {
             rules={[{ required: true, message: 'Please select the clothe!' }]}
           >
             <Select placeholder='Please select a clothe'>
-              <Option value='cardigan_knit'>Cardigan Knit</Option>
-              <Option value='leather_biker_premium'>
-                Leather Biker Premium
-              </Option>
+              <Option value='1'>Cardigan Knit</Option>
+              <Option value='2'>Leather Biker Premium</Option>
             </Select>
           </Form.Item>
 

@@ -60,6 +60,7 @@ const Login: React.FC = () => {
     setIsLogin(true)
     const { isAdmin } = account
     if (isAdmin as boolean) {
+      localStorage.setItem('isLogin', 'true')
       navigate('/admin/dashboard')
       return
     }
