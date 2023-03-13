@@ -1,4 +1,5 @@
 export * from './client'
+export * from './admin'
 export { default as LoginPage } from './login'
 export { default as RegisterPage } from './register'
 export { default as ForgotPage } from './forgot'

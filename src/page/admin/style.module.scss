@@ -1,0 +1,7 @@
+.action {
+  text-align: right;
+
+  > :not(:last-child) {
+    margin-right: 1rem;
+  }
+}

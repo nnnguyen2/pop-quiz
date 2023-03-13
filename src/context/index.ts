@@ -1,5 +1,13 @@
 import { createContext } from 'react'
 
-export const AppContext = createContext({})
+export interface AuthorizedContext {
+  isLogin: boolean
+  setIsLogin: any
+}
+
+export const AppContext = createContext<AuthorizedContext>({
+  isLogin: false,
+  setIsLogin: () => {}
+})
 
 export default AppContext
