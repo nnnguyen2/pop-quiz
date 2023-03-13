@@ -7,7 +7,12 @@ import { OTP } from 'mock'
 
 const { Item: FormItem } = Form
 
-const OtpConfirm: React.FC<{ onFinish: () => void }> = ({ onFinish }) => {
+interface Props {
+  onFinish: () => void
+  onCancel: () => void
+}
+
+const EmailSubmit: React.FC<Props> = ({ onFinish, onCancel }) => {
   const [otp, setOtp] = useState('')
   const [error, setError] = useState(false)
 
@@ -40,15 +45,19 @@ const OtpConfirm: React.FC<{ onFinish: () => void }> = ({ onFinish }) => {
 
       <FormItem style={{ marginBottom: 0 }}>
         <Button type='primary' block onClick={onValidateOtp}>
-          Next
+          Login
+        </Button>
+        <Button type='link' block onClick={onCancel}>
+          Cancel
         </Button>
       </FormItem>
     </Form>
   )
 }
 
-OtpConfirm.propTypes = {
-  onFinish: PropTypes.any
+EmailSubmit.propTypes = {
+  onFinish: PropTypes.any,
+  onCancel: PropTypes.any
 }
 
-export default OtpConfirm
+export default EmailSubmit

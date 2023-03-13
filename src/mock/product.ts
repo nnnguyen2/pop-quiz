@@ -16,7 +16,7 @@ export interface Product {
   upload_by: string
 }
 
-export const adminProducts = [
+export const adminProducts: Product[] = [
   {
     key: '1',
     name: 'Cardigan Knit',
@@ -42,3 +42,19 @@ export const adminProducts = [
     upload_by: 'Client'
   }
 ]
+
+export const sizes: Record<string, [number, number]> = {
+  M: [40, 51],
+  L: [52, 59],
+  XL: [60, 69],
+  XXL: [70, 78],
+  XXXL: [79, 90]
+}
+
+export const sizePrices: Record<string, number> = {
+  M: 200,
+  L: 250,
+  XL: 300,
+  XXL: 350,
+  XXXL: 400
+}

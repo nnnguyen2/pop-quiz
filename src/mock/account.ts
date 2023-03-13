@@ -16,7 +16,8 @@ export interface RegisterAccount extends Account {
 export const clientAccount = {
   username: 'client',
   password: '123456',
-  email: 'client@gmail.com'
+  email: 'client@gmail.com',
+  isAdmin: false
 }
 
 export const adminAccount = {
