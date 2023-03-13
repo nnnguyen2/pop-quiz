@@ -1,0 +1,16 @@
+.action {
+  text-align: right;
+
+  > :not(:last-child) {
+    margin-right: 1rem;
+  }
+}
+
+.cardSub {
+  display: flex;
+  justify-content: space-between;
+}
+
+.meta {
+  margin-bottom: 1rem;
+}
