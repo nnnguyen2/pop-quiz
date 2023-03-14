@@ -8,6 +8,8 @@ import {
   type Route as RouteType
 } from './routes'
 
+import { PrivateLayout } from 'components'
+
 const renderRouters: (routes: RouteType[]) => ReactElement[] = (routes) =>
   routes.map((route) => <Route {...route} key={route.key} />)
 
@@ -16,8 +18,10 @@ const AppRouters: React.FC = () => (
     <Router>
       <Routes>
         {renderRouters(publicRouters)}
-        {renderRouters(clientRouters)}
-        {renderRouters(adminRouters)}
+        <Route element={<PrivateLayout />}>
+          {renderRouters(clientRouters)}
+          {renderRouters(adminRouters)}
+        </Route>
       </Routes>
     </Router>
   </>

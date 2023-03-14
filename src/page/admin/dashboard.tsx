@@ -1,8 +1,10 @@
 import { useState } from 'react'
-import { Typography, Table, Button, Tag, Modal, notification } from 'antd'
+import { Typography, Table, Button, Modal, notification } from 'antd'
 
 import { Layout } from 'components'
 import { adminProducts, type Product } from 'mock'
+import { getTag } from 'utils'
+import { PROCESS_STATUS } from 'enums'
 
 import styles from './style.module.scss'
 
@@ -12,17 +14,6 @@ const { confirm } = Modal
 const Dashboard: React.FC = () => {
   const [list, setList] = useState<Product[]>(adminProducts)
   const [selected, setSelected] = useState<string[]>([])
-
-  const getTag: (value: number) => string[] | undefined = (value) => {
-    if (value > 3 || value < 0) {
-      return
-    }
-    return {
-      0: ['processing', 'Pending'],
-      1: ['success', 'Approve'],
-      2: ['error', 'Reject']
-    }[value]
-  }
 
   const columns = [
     {
@@ -57,11 +48,7 @@ const Dashboard: React.FC = () => {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      render: (value: number) => {
-        const tag = getTag(value)
-        if (tag === undefined) return null
-        return <Tag color={tag[0]}>{tag[1]}</Tag>
-      }
+      render: (value: number) => getTag(value)
     },
     {
       title: 'Upload By',
@@ -95,7 +82,7 @@ const Dashboard: React.FC = () => {
           <Button
             disabled={selected.length < 1}
             type='primary'
-            onClick={showConfirm(1)}
+            onClick={showConfirm(PROCESS_STATUS.ACCEPT)}
           >
             Approve
           </Button>
@@ -103,7 +90,7 @@ const Dashboard: React.FC = () => {
             disabled={selected.length < 1}
             type='primary'
             danger
-            onClick={showConfirm(2)}
+            onClick={showConfirm(PROCESS_STATUS.REJECT)}
           >
             Reject
           </Button>

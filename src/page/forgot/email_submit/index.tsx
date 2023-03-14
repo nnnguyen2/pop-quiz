@@ -1,8 +1,8 @@
 import { Form, Input, Button, notification } from 'antd'
-import PropTypes from 'prop-types'
 import { find } from 'lodash'
 
-import { accounts, type EmailAccount, type Account } from 'mock'
+import { accounts } from 'mock'
+import { type EmailAccount, type Account } from 'interface'
 
 const { Item: FormItem } = Form
 
@@ -45,10 +45,6 @@ const EmailSubmit: React.FC<{ onFinish: () => void }> = ({ onFinish }) => {
       </FormItem>
     </Form>
   )
-}
-
-EmailSubmit.propTypes = {
-  onFinish: PropTypes.any
 }
 
 export default EmailSubmit
