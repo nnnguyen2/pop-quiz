@@ -1,68 +1,19 @@
-import { type ReactNode, useState } from 'react'
-import {
-  Card,
-  Col,
-  Row,
-  Typography,
-  Tag,
-  Button,
-  Modal,
-  Form,
-  InputNumber,
-  Select
-} from 'antd'
-import { find } from 'lodash'
+import { useState } from 'react'
+import { Card, Col, Row, Typography, Button } from 'antd'
 
 import { Layout } from 'components'
-import { adminProducts, sizes, sizePrices, type Product } from 'mock'
+import { adminProducts, type Product } from 'mock'
+import { getTag } from 'utils'
+
+import CreateProductModal from './create'
 import styles from './style.module.scss'
 
 const { Title } = Typography
 const { Meta } = Card
-const { Option } = Select
 
 const Dashboard: React.FC = () => {
-  const [form] = Form.useForm()
   const [open, setOpen] = useState<boolean>(false)
   const [list, setList] = useState<Product[]>(adminProducts)
-
-  const getTag: (value: number) => ReactNode | undefined = (value) => {
-    const tag = {
-      0: ['processing', 'Pending'],
-      1: ['success', 'Approve'],
-      2: ['error', 'Reject']
-    }[value]
-
-    if (value > 3 || value < 0 || tag === undefined) {
-      return null
-    }
-
-    return <Tag color={tag[0]}>{tag[1]}</Tag>
-  }
-
-  const sizeCalculator: () => string = () => {
-    const weight = form.getFieldValue('weight')
-    if (weight === undefined || weight === null) return 'M'
-    const size = find(
-      Object.entries(sizes),
-      ([key, [min, max]]: [string, [number, number]]) => {
-        if (weight > min && weight < max) {
-          return true
-        }
-        return false
-      }
-    )
-    if (size === undefined) return 'M'
-    return size[0]
-  }
-
-  const priceCalculator: () => number = () => {
-    const quantity = form.getFieldValue('quantity')
-    if (quantity === undefined || quantity === null) return 0
-    const size = sizeCalculator()
-    const sizePrice = sizePrices[size]
-    return quantity * sizePrice
-  }
 
   return (
     <Layout>
@@ -110,97 +61,22 @@ const Dashboard: React.FC = () => {
         ))}
       </Row>
 
-      <Modal
-        cancelText='Cancel'
-        okText='Create'
+      <CreateProductModal
         open={open}
-        title='Create a request clothe'
         onCancel={() => {
-          form.resetFields()
           setOpen(false)
         }}
-        onOk={async () => {
-          const values = await form.validateFields()
-          const product = find(adminProducts, { key: values.name })
+        onOk={(values) => {
           setList((prev) => [
             ...prev,
             {
-              key: `${prev.length + 1}`,
-              name: product.name,
-              images: product.images,
-              size: sizeCalculator(),
-              quantity: values.quantity,
-              price: priceCalculator(),
-              status: 0,
-              upload_by: 'Client'
+              ...values,
+              key: `${prev.length + 1}`
             }
           ])
           setOpen(false)
         }}
-      >
-        <Form
-          form={form}
-          initialValues={{ modifier: 'public' }}
-          layout='vertical'
-          name='form_in_modal'
-        >
-          <Form.Item
-            label='Name'
-            name='name'
-            rules={[{ required: true, message: 'Please select the clothe!' }]}
-          >
-            <Select placeholder='Please select a clothe'>
-              <Option value='1'>Cardigan Knit</Option>
-              <Option value='2'>Leather Biker Premium</Option>
-            </Select>
-          </Form.Item>
-
-          <Form.Item
-            label='Weight'
-            name='weight'
-            rules={[
-              {
-                required: true,
-                message: 'Please input the weight!'
-              }
-            ]}
-          >
-            <InputNumber max={90} min={40} style={{ width: '100%' }} />
-          </Form.Item>
-
-          <Form.Item
-            label='Size'
-            shouldUpdate={(prevValues, curValues) =>
-              prevValues.weight !== curValues.weight
-            }
-          >
-            {() => <span className='ant-form-text'>{sizeCalculator()}</span>}
-          </Form.Item>
-
-          <Form.Item
-            label='Quantity'
-            name='quantity'
-            rules={[
-              {
-                required: true,
-                message: 'Please input the quantity!'
-              }
-            ]}
-          >
-            <InputNumber min={1} style={{ width: '100%' }} />
-          </Form.Item>
-
-          <Form.Item
-            label='Price'
-            shouldUpdate={(prevValues, curValues) =>
-              prevValues.weight !== curValues.weight ||
-              prevValues.quantity !== curValues.quantity
-            }
-          >
-            {() => <span className='ant-form-text'>{priceCalculator()} $</span>}
-          </Form.Item>
-        </Form>
-      </Modal>
+      />
     </Layout>
   )
 }

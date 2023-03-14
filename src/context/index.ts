@@ -2,7 +2,7 @@ import { createContext } from 'react'
 
 export interface AuthorizedContext {
   isLogin: boolean
-  setIsLogin: any
+  setIsLogin: (isLogin: boolean) => void
 }
 
 export const AppContext = createContext<AuthorizedContext>({

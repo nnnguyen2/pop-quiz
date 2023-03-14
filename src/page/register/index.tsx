@@ -3,7 +3,8 @@ import { find } from 'lodash'
 import { useNavigate } from 'react-router-dom'
 
 import styles from 'module_styles/_page.module.scss'
-import { accounts, type RegisterAccount, type Account } from 'mock'
+import { accounts } from 'mock'
+import { type RegisterAccount, type Account } from 'interface'
 
 const { Title } = Typography
 const { Item: FormItem } = Form

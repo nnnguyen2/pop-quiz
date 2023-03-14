@@ -1,18 +1,18 @@
 import { useState } from 'react'
 import { Form, Button, notification } from 'antd'
 import OtpInput from 'react-otp-input'
-import PropTypes from 'prop-types'
 
 import { OTP } from 'mock'
 
 const { Item: FormItem } = Form
 
 interface Props {
+  okText: string
   onFinish: () => void
-  onCancel: () => void
+  onCancel?: () => void
 }
 
-const EmailSubmit: React.FC<Props> = ({ onFinish, onCancel }) => {
+const EmailSubmit: React.FC<Props> = ({ onFinish, onCancel, okText }) => {
   const [otp, setOtp] = useState('')
   const [error, setError] = useState(false)
 
@@ -45,19 +45,16 @@ const EmailSubmit: React.FC<Props> = ({ onFinish, onCancel }) => {
 
       <FormItem style={{ marginBottom: 0 }}>
         <Button type='primary' block onClick={onValidateOtp}>
-          Login
+          {okText}
         </Button>
-        <Button type='link' block onClick={onCancel}>
-          Cancel
-        </Button>
+        {onCancel !== undefined && (
+          <Button type='link' block onClick={onCancel}>
+            Cancel
+          </Button>
+        )}
       </FormItem>
     </Form>
   )
-}
-
-EmailSubmit.propTypes = {
-  onFinish: PropTypes.any,
-  onCancel: PropTypes.any
 }
 
 export default EmailSubmit

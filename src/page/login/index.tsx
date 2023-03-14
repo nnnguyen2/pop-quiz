@@ -11,10 +11,12 @@ import {
 import { find } from 'lodash'
 import { useNavigate } from 'react-router-dom'
 
-import OtpConfirm from './otp_confirm'
-import styles from 'module_styles/_page.module.scss'
-import { accounts, type Account } from 'mock'
+import { OtpConfirm } from 'components'
 import { AppContext } from 'context'
+import { emptyAccount, LOGIN_STEP } from 'enums'
+import { type Account } from 'interface'
+import styles from 'module_styles/_page.module.scss'
+import { accounts } from 'mock'
 
 const { Title } = Typography
 const { Item: FormItem } = Form
@@ -23,8 +25,8 @@ const Login: React.FC = () => {
   const { setIsLogin } = useContext(AppContext)
   const navigate = useNavigate()
 
-  const [step, setStep] = useState<number>(1)
-  const [account, setAccount] = useState<any>({})
+  const [step, setStep] = useState<LOGIN_STEP>(LOGIN_STEP.FORM)
+  const [account, setAccount] = useState<Account>(emptyAccount)
   const [failedLogin, setFailedLogin] = useState<number>(0)
 
   const onLogin = async ({
@@ -53,7 +55,7 @@ const Login: React.FC = () => {
       return
     }
     setAccount(account)
-    setStep(2)
+    setStep(LOGIN_STEP.OTP)
   }
 
   const onConfirmOtp: () => void = () => {
@@ -71,81 +73,81 @@ const Login: React.FC = () => {
     <div className={styles.page}>
       <div className={styles.form}>
         {step === 1 && (
-          <Form autoComplete='off' layout='vertical' onFinish={onLogin}>
-            <Title>Login</Title>
+          <>
+            <Form autoComplete='off' layout='vertical' onFinish={onLogin}>
+              <Title>Login</Title>
 
-            <FormItem
-              label='Username'
-              name='username'
-              rules={[
-                { required: true, message: 'Please input your username!' }
-              ]}
-            >
-              <Input />
-            </FormItem>
-
-            <FormItem
-              label='Password'
-              name='password'
-              rules={[
-                { required: true, message: 'Please input your password!' }
-              ]}
-            >
-              <Input.Password />
-            </FormItem>
-
-            <FormItem>
-              <Button
-                disabled={failedLogin > 2}
-                htmlType='submit'
-                type='primary'
-                block
+              <FormItem
+                label='Username'
+                name='username'
+                rules={[
+                  { required: true, message: 'Please input your username!' }
+                ]}
               >
-                Login
-              </Button>
-              <div className={styles.action}>
-                <Button
-                  type='link'
-                  onClick={() => {
-                    navigate('/register')
-                  }}
-                >
-                  Register
-                </Button>
-                <Button
-                  type='link'
-                  onClick={() => {
-                    navigate('/forgot')
-                  }}
-                >
-                  Forgot Password
-                </Button>
-              </div>
-            </FormItem>
-          </Form>
-        )}
+                <Input />
+              </FormItem>
 
-        {step === 1 && (
-          <Alert
-            message={
-              <>
-                Use account bellow for example login:
-                <div>
-                  Username: <b>client</b> / <b>admin</b>
+              <FormItem
+                label='Password'
+                name='password'
+                rules={[
+                  { required: true, message: 'Please input your password!' }
+                ]}
+              >
+                <Input.Password />
+              </FormItem>
+
+              <FormItem>
+                <Button
+                  disabled={failedLogin > 2}
+                  htmlType='submit'
+                  type='primary'
+                  block
+                >
+                  Login
+                </Button>
+                <div className={styles.action}>
+                  <Button
+                    type='link'
+                    onClick={() => {
+                      navigate('/register')
+                    }}
+                  >
+                    Register
+                  </Button>
+                  <Button
+                    type='link'
+                    onClick={() => {
+                      navigate('/forgot')
+                    }}
+                  >
+                    Forgot Password
+                  </Button>
                 </div>
-                <div>
-                  Password: <b>123456</b>
-                </div>
-              </>
-            }
-            type='info'
-          />
+              </FormItem>
+            </Form>
+            <Alert
+              message={
+                <>
+                  Use account bellow for example login:
+                  <div>
+                    Username: <b>client</b> / <b>admin</b>
+                  </div>
+                  <div>
+                    Password: <b>123456</b>
+                  </div>
+                </>
+              }
+              type='info'
+            />
+          </>
         )}
 
         {step === 2 && (
           <OtpConfirm
+            okText='Login'
             onCancel={() => {
-              setStep(1)
+              setStep(LOGIN_STEP.FORM)
             }}
             onFinish={onConfirmOtp}
           />

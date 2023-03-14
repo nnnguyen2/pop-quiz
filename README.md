@@ -27,13 +27,15 @@
 
 ```shell
 |--src # Main Logic Code
+|   |--- enum # Share Enums
 |   |--- components # Share UI
 |   |--- context # State Management
-|   |--- mock # Mock data
+|   |--- interface # Interface
 |   |--- mock # Mock data
 |   |--- module_styles # Share module styles
 |   |--- page # Page view
 |   |--- router # Config router direct to page
+|   |--- utils # Share function
 |   |--- App.tsx
 |   |--- index.css # Reset css
 |   |--- index.tsx
