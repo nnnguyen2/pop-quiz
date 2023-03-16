@@ -3,15 +3,23 @@
   width: 100%;
   display: flex;
   align-items: space-between;
+  background-color: #c9eeff;
 }
 
 .logo {
   width: 120px;
   height: 31px;
   margin: 16px 24px 16px 0;
-  background: rgba(255, 255, 255, 0.2);
+  background-image: url('../../images/logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .menu {
   flex: 1;
+  background-color: inherit;
+}
+
+.avatar {
+  border: 1px solid #aa77ff;
 }
