@@ -24,7 +24,10 @@ const AppHeader: React.FC = () => {
       />
 
       <div className={styles.user}>
-        <Avatar src='https://joesch.moe/api/v1/random?key=1' />
+        <Avatar
+          className={styles.avatar}
+          src='https://joesch.moe/api/v1/random?key=1'
+        />
         <Button
           type='link'
           onClick={() => {
